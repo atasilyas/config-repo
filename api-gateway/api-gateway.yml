@@ -1,0 +1,30 @@
+spring:
+  application :
+    name: api-gateway
+server:
+  port: 8090
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8762/eureka
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    hostname: localhost
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 20
+
+ribbon:
+  eureka:
+    enabled: true
+zuul:
+  routes:
+    auth-service:
+      url: http://localhost:8081
+      service-id: auth-service
+    account-service:
+      url: http://localhost:8080
+      service-id: account-service
+  sensitive-headers: Cookie,Set-Cookie
